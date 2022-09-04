@@ -1,6 +1,13 @@
 import "./welcome.styles.css";
 
 const Welcome = () => {
+  const newTripHandler = () => {
+    console.log("New Trip Started");
+    // create a token with 3 random cities
+    // store the token into a context
+    // create a new trip on firebase with the new token, it should be an array.
+    // once this is all done, navigate the user to the home screen.
+  };
   return (
     <div>
       <div className="hero is-fullheight has-background">
@@ -17,16 +24,18 @@ const Welcome = () => {
                     Plan Your Trip
                   </h1>
 
-                  <h1 className="title is-5 is-size-3-mobile is-spaced welcome-subtitle mb-0">
+                  <h1 className="title is-5 is-size-5-mobile is-spaced welcome-subtitle mb-0">
                     A New Trip
                   </h1>
 
                   {/* <Link to="/"> */}
                   <div className="buttons is-inline-flex mt-5">
-                    <button className="button is-link">Start A New Trip</button>
+                    <button onClick={newTripHandler} className="button is-link">
+                      Start A New Trip
+                    </button>
                   </div>
 
-                  <h1 className="title is-5 is-size-3-mobile is-spaced welcome-subtitle mb-5">
+                  <h1 className="title is-5 is-size-5-mobile is-spaced welcome-subtitle mb-5">
                     An Existing Trip
                   </h1>
 
