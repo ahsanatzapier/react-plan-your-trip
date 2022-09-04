@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Lemon&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap");
+
+.welcome-title {
+  font-family: "Lemon";
+}
+
+.welcome-subtitle {
+  font-family: "Chelsea Market";
+}
+
+.hero.has-background {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+  height: 100%;
+}
+.hero-background.is-transparent {
+  opacity: 0.5;
+}
+
+.button.is-static {
+  background-color: maroon;
+  border-color: transparent;
+  color: #fff;
+  box-shadow: none;
+  pointer-events: none;
+}
