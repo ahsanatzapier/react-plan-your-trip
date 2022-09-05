@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { TripTokenContext } from "../../contexts/triptoken/triptoken.context";
 import { PlacesContext } from "../../contexts/places/places.context";
 import { getPlacesArrayForToken } from "../../utils/firebase.utils";
+import Search from "../../components/search/search.component";
 
 const Home = () => {
   const { tripToken, setTripToken } = useContext(TripTokenContext);
@@ -97,10 +98,9 @@ const Home = () => {
           </nav>
         </div>
 
-        <div className="hero-body">
-          <div className="container has-text-centered">
-            <p className="title">Title</p>
-            <p className="subtitle">Subtitle</p>
+        <div className="hero-body has-text-centered is-align-items-stretch">
+          <div className="container">
+            <Search />
           </div>
         </div>
       </section>

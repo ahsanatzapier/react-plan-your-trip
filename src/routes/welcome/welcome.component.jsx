@@ -58,17 +58,6 @@ const Welcome = () => {
     setTripToken(token);
     setPlaces(places);
     navigate("/home");
-
-    // console.log(places);
-
-    // check in firebase if a document exists with that token
-    // if the document exist, set this as the token and in Home,
-    // setTripToken(token);
-
-    // getPlacesArrayForToken();
-
-    // -- do a pull do everything in the document
-    // if the document doesn't exist, show error saying the token is invalid
   };
 
   return (
