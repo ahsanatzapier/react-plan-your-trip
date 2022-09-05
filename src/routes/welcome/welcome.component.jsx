@@ -24,11 +24,19 @@ const Welcome = () => {
   const { token } = formField;
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  const newTripHandler = () => {
+  const newTripHandler = async () => {
     const token = Date.now();
-    createPlacesArrayForToken(token);
-    setTripToken(token);
-    navigate("/home");
+    await createPlacesArrayForToken(token);
+    const places = await getPlacesArrayForToken(token);
+    if (places) {
+      setTripToken(token);
+      setPlaces(places.places);
+      navigate("/home");
+    }
+
+    // setTripToken(token);
+    // setPlaces(places.places);
+    // navigate("/home");
   };
 
   const resetFormField = () => {
@@ -56,7 +64,7 @@ const Welcome = () => {
       return;
     }
     setTripToken(token);
-    setPlaces(places);
+    setPlaces(places.places);
     navigate("/home");
   };
 

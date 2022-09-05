@@ -5,8 +5,8 @@ import {
   doc,
   getDoc,
   setDoc,
-  // arrayUnion,
-  // updateDoc,
+  arrayUnion,
+  updateDoc,
   // arrayRemove,
 } from "firebase/firestore";
 
@@ -59,13 +59,34 @@ export const createPlacesArrayForToken = async (token) => {
 export const getPlacesArrayForToken = async (token) => {
   if (!token) return;
 
-  const userDocRef = doc(db, "plans", token);
+  const tokenDocRef = doc(db, "plans", `${token}`);
 
-  const docSnap = await getDoc(userDocRef);
+  const docSnap = await getDoc(tokenDocRef);
   if (docSnap.exists()) {
   } else {
     console.log("No such document!");
   }
   // console.log(docSnap.data());
   return docSnap.data();
+};
+
+/**
+ * ********************************
+ * addPlaceToPlacesArrayForToken
+ * ********************************
+ */
+export const addPlaceToPlacesArrayForToken = async (token, place) => {
+  if (!token && place) return;
+
+  const tokenDocRef = doc(db, "plans", `${token}`);
+  const userSnapshot = await getDoc(tokenDocRef);
+
+  if (userSnapshot.exists()) {
+    try {
+      await updateDoc(tokenDocRef, { places: arrayUnion(place) });
+    } catch (error) {
+      console.log("error adding place to array", error.message);
+    }
+  }
+  return tokenDocRef;
 };

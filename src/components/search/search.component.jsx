@@ -1,6 +1,9 @@
 import "./search.styles.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PlacesContainer from "../places-container/places-container.component";
+
+import { PlacesContext } from "../../contexts/places/places.context";
+import { useContext } from "react";
 
 const defaultFromFields = {
   search: "",
@@ -9,6 +12,7 @@ const defaultFromFields = {
 const Search = () => {
   const [formFields, setFormFields] = useState(defaultFromFields);
   const [fsPlaces, setFsPlaces] = useState([]);
+  const { places } = useContext(PlacesContext);
 
   const { search } = formFields;
   const handleSubmit = async (event) => {
@@ -28,6 +32,8 @@ const Search = () => {
       Authorization: "fsq3Nn7nSxTJMvHyYBDgQKNHNFKD+E1J+ZD5cI/jt24fo1M=",
     },
   };
+
+  useEffect(() => {}, [places]);
 
   const getPlaces = (search) => {
     const endpoint = `https://api.foursquare.com/v3/places/search?near=${search}&limit=4`;
@@ -55,7 +61,7 @@ const Search = () => {
       });
   };
 
-  // console.log(fsPlaces);
+  console.log("firestore", places);
 
   return (
     <div>
@@ -85,6 +91,12 @@ const Search = () => {
           Your Trip
         </h1>
       </div>
+
+      {places.length == 0 && (
+        <div className="content has-text-centered p-3">
+          <h1 className="title is-4 mb-5">Your Trip is empty</h1>
+        </div>
+      )}
     </div>
   );
 };
