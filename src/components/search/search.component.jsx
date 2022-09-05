@@ -1,5 +1,6 @@
 import "./search.styles.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import PlacesContainer from "../places-container/places-container.component";
 
 const defaultFromFields = {
   search: "",
@@ -7,13 +8,12 @@ const defaultFromFields = {
 
 const Search = () => {
   const [formFields, setFormFields] = useState(defaultFromFields);
-  const [searchString, setSearchString] = useState("");
   const [fsPlaces, setFsPlaces] = useState([]);
 
   const { search } = formFields;
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setSearchString(search);
+    getPlaces(search);
   };
 
   const handleChange = (event) => {
@@ -29,30 +29,42 @@ const Search = () => {
     },
   };
 
-  useEffect(() => {
-    const endpoint = `https://api.foursquare.com/v3/places/search?near=${searchString}&limit=10`;
+  const getPlaces = (search) => {
+    const endpoint = `https://api.foursquare.com/v3/places/search?near=${search}&limit=4`;
 
     fetch(endpoint, fourSquareOptions)
       .then((response) => response.json())
       .then((places) => {
         setFsPlaces(places.results);
-        console.log(fsPlaces);
-
+        // console.log(fsPlaces);
         // setSearchUpdated(true);
       })
       .catch(() => {
         console.log("Unable to fetch locations");
       });
-  }, [searchString]);
+
+    fetch(endpoint, fourSquareOptions)
+      .then((response) => response.json())
+      .then((places) => {
+        setFsPlaces(places.results);
+        // console.log(fsPlaces);
+        // setSearchUpdated(true);
+      })
+      .catch(() => {
+        console.log("Unable to fetch locations");
+      });
+  };
+
+  // console.log(fsPlaces);
 
   return (
-    <section className="section search">
+    <div>
       <form className="search-form" onSubmit={handleSubmit}>
         <div className="form-control">
           <label htmlFor="name">Where are you headed?</label>
 
           <input
-            className="input has-text-centered"
+            className="input"
             type="text"
             placeholder="ex. Edmonton"
             onChange={handleChange}
@@ -62,39 +74,18 @@ const Search = () => {
           />
         </div>
       </form>
-      {fsPlaces.map((places) => {
-        return (
-          <div key={places.fsq_id}>
-            <div className="container">
-              <div class="card">
-                <header class="card-header">
-                  <p class="card-header-title">{places.name}</p>
-                  <button class="card-header-icon" aria-label="more options">
-                    <span class="icon">
-                      <i class="fas fa-angle-down" aria-hidden="true"></i>
-                    </span>
-                  </button>
-                </header>
-                <div class="card-content">
-                  <div class="content">{places.location.formatted_address}</div>
-                </div>
-                <footer class="card-footer">
-                  <a href="#" class="card-footer-item">
-                    Save
-                  </a>
-                  <a href="#" class="card-footer-item">
-                    Edit
-                  </a>
-                  <a href="#" class="card-footer-item">
-                    Delete
-                  </a>
-                </footer>
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </section>
+      <br></br>
+
+      {fsPlaces.length !== 0 && <PlacesContainer fsPlaces={fsPlaces} />}
+      <br></br>
+
+      <div className="box has-background-dark p-4">
+        <div className="container has-text-centered"></div>
+        <h1 className="title is-5 is-size-5-mobile is-spaced welcome-subtitle mb-0 has-text-centered has-text-white">
+          Your Trip
+        </h1>
+      </div>
+    </div>
   );
 };
 

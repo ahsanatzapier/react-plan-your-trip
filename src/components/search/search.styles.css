@@ -34,7 +34,7 @@
   padding: 0.5rem;
   font-size: 1.2rem;
 }
-.container {
+.cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 0.5em;
@@ -42,4 +42,14 @@
 
 .card {
   height: max-content;
+}
+
+.box {
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 0.5em 1em -0.125emrgba (10, 10, 10, 0.1),
+    0 0 0 1pxrgba (10, 10, 10, 0.02);
+  color: #4a4a4a;
+  display: block;
+  padding: 0.5rem;
 }

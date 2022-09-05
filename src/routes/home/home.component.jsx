@@ -20,7 +20,7 @@ const Home = () => {
   //   // console.log("useEffect", places);
   // }, []);
 
-  console.log(places);
+  // console.log(places);
 
   const copyHandler = async () => {
     navigator.clipboard.writeText(tripToken);
@@ -34,7 +34,7 @@ const Home = () => {
         <img
           className="hero-background is-transparent"
           alt="hero-background"
-          src="https://img.freepik.com/free-photo/map-wallet-with-currency-passport-ticket-yellow-background_23-2147958237.jpg?w=1380&t=st=1662356494~exp=1662357094~hmac=363bf61e23446235e53d3a0b9ad3a6202e16431b3f4af55c3cbd49da39131eef"
+          src="https://img.freepik.com/premium-vector/abstract-watercolor-cover_1034-2274.jpg?w=1380"
         />
 
         <div className="hero-head">
@@ -98,7 +98,7 @@ const Home = () => {
           </nav>
         </div>
 
-        <div className="hero-body has-text-centered is-align-items-stretch">
+        <div className="hero-body is-align-items-stretch">
           <div className="container">
             <Search />
           </div>
