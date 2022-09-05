@@ -26,7 +26,7 @@ export const db = getFirestore();
 
 /**
  * ***************************
- * createPlanArrayForToken
+ * createPlacesArrayForToken
  * ***************************
  */
 export const createPlacesArrayForToken = async (token) => {
@@ -35,18 +35,37 @@ export const createPlacesArrayForToken = async (token) => {
   const tokenDocRef = doc(db, "plans", `${token}`);
   const tokenSnapshot = await getDoc(tokenDocRef);
 
-  console.log(tokenDocRef);
-  console.log(tokenSnapshot.exists());
+  // console.log(tokenDocRef);
+  // console.log(tokenSnapshot.exists());
 
   if (!tokenSnapshot.exists()) {
     try {
       await setDoc(tokenDocRef, {
-        plans: [],
+        places: [],
       });
-      console.log("Plans Array Created for token");
+      console.log("Places Array Created for token");
     } catch (error) {
       console.log("error creating the token document", error.message);
     }
   }
   return tokenDocRef;
+};
+
+/*
+ * **************************
+ * getPlaceArrayForToken
+ * **************************
+ */
+export const getPlacesArrayForToken = async (token) => {
+  if (!token) return;
+
+  const userDocRef = doc(db, "plans", token);
+
+  const docSnap = await getDoc(userDocRef);
+  if (docSnap.exists()) {
+  } else {
+    console.log("No such document!");
+  }
+  // console.log(docSnap.data());
+  return docSnap.data();
 };

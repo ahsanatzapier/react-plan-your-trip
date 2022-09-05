@@ -1,12 +1,28 @@
 import "./welcome.styles.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { TripTokenContext } from "../../contexts/triptoken/triptoken.context";
+import { PlacesContext } from "../../contexts/places/places.context";
 import { useNavigate } from "react-router-dom";
-import { createPlacesArrayForToken } from "../../utils/firebase.utils";
+import {
+  createPlacesArrayForToken,
+  getPlacesArrayForToken,
+} from "../../utils/firebase.utils";
+
+const defaultFormField = {
+  token: "",
+};
+
+const errorFormField = {
+  token: "Invalid Token",
+};
 
 const Welcome = () => {
   const navigate = useNavigate();
   const { setTripToken } = useContext(TripTokenContext);
+  const { setPlaces } = useContext(PlacesContext);
+  const [formField, setFormField] = useState(defaultFormField);
+  const { token } = formField;
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const newTripHandler = () => {
     const token = Date.now();
@@ -15,13 +31,46 @@ const Welcome = () => {
     navigate("/home");
   };
 
-  const returnToTripHandler = () => {
-    // taken the content of the textbox
+  const resetFormField = () => {
+    setFormField(defaultFormField);
+  };
+
+  const showErrorFormField = () => {
+    setFormField(errorFormField);
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormField({ ...formField, [name]: value });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const token = event.target.token.value;
+    // console.log("handleSubmit", token);
+    const places = await getPlacesArrayForToken(token);
+    if (!places) {
+      showErrorFormField();
+      await delay(1000);
+      resetFormField();
+      return;
+    }
+    setTripToken(token);
+    setPlaces(places);
+    navigate("/home");
+
+    // console.log(places);
+
     // check in firebase if a document exists with that token
     // if the document exist, set this as the token and in Home,
+    // setTripToken(token);
+
+    // getPlacesArrayForToken();
+
     // -- do a pull do everything in the document
     // if the document doesn't exist, show error saying the token is invalid
   };
+
   return (
     <div>
       <div className="hero is-fullheight has-background">
@@ -54,47 +103,29 @@ const Welcome = () => {
                     An Existing Trip
                   </h1>
 
-                  <form>
+                  <form onSubmit={handleSubmit}>
                     <div className="field has-addons ">
                       <p className="control">
                         <span className="button is-static">Trip Token</span>
                       </p>
-
                       <div className="control is-expanded">
                         <input
-                          className="input"
+                          className="input has-text-centered"
                           type="text"
-                          // onChange={changeHandler}
-                          name="search"
-                          // value={search}
+                          onChange={handleChange}
+                          name="token"
+                          value={token}
                           required
                         />
                       </div>
-
                       <div className="control">
-                        <button
-                          type="submit"
-                          className="button is-link"
-                          onClick={returnToTripHandler}
-                        >
+                        <button type="submit" className="button is-link">
                           Return To My Trip
                         </button>
                       </div>
                     </div>
                   </form>
-
-                  {/* </Link> */}
-                  {/* <h1 className="title is-3 is-size-3-mobile is-spaced mb-0">
-                    but you might be.
-                  </h1> */}
                 </header>
-                {/* <Link to="/">
-                  <div className="buttons is-inline-flex mt-5">
-                    <button className="button is-link is-medium">
-                      Go Home
-                    </button>
-                  </div>
-                </Link> */}
               </div>
             </div>
           </div>

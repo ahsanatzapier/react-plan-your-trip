@@ -1,11 +1,25 @@
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TripTokenContext } from "../../contexts/triptoken/triptoken.context";
+import { PlacesContext } from "../../contexts/places/places.context";
+import { getPlacesArrayForToken } from "../../utils/firebase.utils";
 
 const Home = () => {
   const { tripToken, setTripToken } = useContext(TripTokenContext);
+  const { places, setPlaces } = useContext(PlacesContext);
   const [copyState, setCopyState] = useState("Copy");
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  // useEffect(() => {
+  //   const getPlaces = async () => {
+  //     const places = await getPlacesArrayForToken(tripToken);
+  //     console.log(places);
+  //   };
+  //   getPlaces();
+  //   // console.log("useEffect", places);
+  // }, []);
+
+  console.log(places);
 
   const copyHandler = async () => {
     navigator.clipboard.writeText(tripToken);
@@ -19,7 +33,7 @@ const Home = () => {
         <img
           className="hero-background is-transparent"
           alt="hero-background"
-          src="https://img.freepik.com/free-vector/road-desert-scenery-landscape-with-rocks-cracked-dry-ground-straight-empty-highway-arizona-grand-canyon-asphalted-way-disappear-into-distance-deserted-land-cartoon-vector-illustration_107791-7878.jpg?w=2000&t=st=1662329681~exp=1662330281~hmac=13dbd1e7b5d3f49256be4bf7423b9e0b69db18ad2e2227203d8c33962eb27365"
+          src="https://img.freepik.com/free-photo/map-wallet-with-currency-passport-ticket-yellow-background_23-2147958237.jpg?w=1380&t=st=1662356494~exp=1662357094~hmac=363bf61e23446235e53d3a0b9ad3a6202e16431b3f4af55c3cbd49da39131eef"
         />
 
         <div className="hero-head">
