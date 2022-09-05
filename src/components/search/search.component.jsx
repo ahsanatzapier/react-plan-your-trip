@@ -1,6 +1,7 @@
 import "./search.styles.css";
 import { useEffect, useState } from "react";
 import PlacesContainer from "../places-container/places-container.component";
+import FsPlacesContainer from "../fs-places-container/fs-places-container.component";
 
 import { PlacesContext } from "../../contexts/places/places.context";
 import { useContext } from "react";
@@ -97,6 +98,8 @@ const Search = () => {
           <h1 className="title is-4 mb-5">Your Trip is empty</h1>
         </div>
       )}
+
+      {places.length !== 0 && <FsPlacesContainer fsPlaces={places} />}
     </div>
   );
 };

@@ -7,7 +7,7 @@ import {
   setDoc,
   arrayUnion,
   updateDoc,
-  // arrayRemove,
+  arrayRemove,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -79,13 +79,34 @@ export const addPlaceToPlacesArrayForToken = async (token, place) => {
   if (!token && place) return;
 
   const tokenDocRef = doc(db, "plans", `${token}`);
-  const userSnapshot = await getDoc(tokenDocRef);
+  const tokenSnapshot = await getDoc(tokenDocRef);
 
-  if (userSnapshot.exists()) {
+  if (tokenSnapshot.exists()) {
     try {
       await updateDoc(tokenDocRef, { places: arrayUnion(place) });
     } catch (error) {
       console.log("error adding place to array", error.message);
+    }
+  }
+  return tokenDocRef;
+};
+
+/**
+ * ***********************************
+ * removePlaceFromPlacesArrayForToken
+ * ***********************************
+ */
+export const removePlaceFromPlacesArrayForToken = async (token, place) => {
+  if (!token && place) return;
+
+  const tokenDocRef = doc(db, "plans", `${token}`);
+  const tokenSnapshot = await getDoc(tokenDocRef);
+
+  if (tokenSnapshot.exists()) {
+    try {
+      await updateDoc(tokenDocRef, { places: arrayRemove(place) });
+    } catch (error) {
+      console.log("error removing place from array", error.message);
     }
   }
   return tokenDocRef;

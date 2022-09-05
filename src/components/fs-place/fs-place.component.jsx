@@ -1,13 +1,13 @@
-import { useContext, useState } from "react";
-import { TripTokenContext } from "../../contexts/triptoken/triptoken.context";
-import { PlacesContext } from "../../contexts/places/places.context";
-
 import {
   addPlaceToPlacesArrayForToken,
   getPlacesArrayForToken,
+  removePlaceFromPlacesArrayForToken,
 } from "../../utils/firebase.utils";
+import { useContext } from "react";
+import { TripTokenContext } from "../../contexts/triptoken/triptoken.context";
+import { PlacesContext } from "../../contexts/places/places.context";
 
-const Place = ({ place }) => {
+const FsPlace = ({ place }) => {
   const { name: placeName, location: placeLocation, fsq_id: id } = place;
   const { address, locality, country } = placeLocation;
   const { name: categoryName, icon } = place.categories[0];
@@ -15,18 +15,12 @@ const Place = ({ place }) => {
   const imageUrl = `${prefix}88${suffix}`;
   const { tripToken } = useContext(TripTokenContext);
   const { setPlaces } = useContext(PlacesContext);
-  const [addState, setAddState] = useState("Add to Trip");
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const handleClick = async () => {
-    const status = await addPlaceToPlacesArrayForToken(tripToken, place);
-    console.log("ADD BUTTON", status);
+    await removePlaceFromPlacesArrayForToken(tripToken, place);
     const places = await getPlacesArrayForToken(tripToken);
     if (places) {
       setPlaces(places.places);
-      setAddState("Added!");
-      await delay(400);
-      setAddState("Add to Trip");
     }
   };
 
@@ -56,8 +50,8 @@ const Place = ({ place }) => {
             </p>
           </div>
 
-          <button onClick={handleClick} className="button is-link">
-            {addState}
+          <button onClick={handleClick} className="button is-danger">
+            Remove from Trip
           </button>
         </div>
       </div>
@@ -65,4 +59,4 @@ const Place = ({ place }) => {
   );
 };
 
-export default Place;
+export default FsPlace;
