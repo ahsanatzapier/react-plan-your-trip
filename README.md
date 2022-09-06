@@ -1,10 +1,12 @@
 # Live Demo
 
-https://adhan.netlify.app/
+https://plan-your-trip-app.netlify.app/
 
 # What is Plan Your Trip ?
 
-![](https://github.com/ahsanatzapier/react-adhan-prayer-times/blob/main/src/assets/smallprayer.svg)
+![](https://github.com/ahsanatzapier/react-plan-your-trip/blob/main/src/assets/logo.svg)
+
+Plan Your Trip is a fun and simple solo or collaborative trip planning app. It uses React for UI development and Firebase for the database. The app is hosted on Netlify. When a user starts a new trip, they are granted a random "TripToken" generated for their unique trip. If they leave the app, they can use the token to return to their unique trip and keep planning it. The user can also share this "TripToken" with others for collaborative trip planning. The application takes the user location input and uses the FourSquare API to find points of interest at that location. The user can then add the desired points of interest from that location to their trip before searching for a new location and adding additional points of interest from there. A trip can have points of interest from any one number of locations. Users can also remove the points of interest from their trip if they are no longer interested in it.
 
 # Preview
 
