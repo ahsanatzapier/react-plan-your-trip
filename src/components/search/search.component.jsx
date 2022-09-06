@@ -1,10 +1,9 @@
 import "./search.styles.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import PlacesContainer from "../places-container/places-container.component";
 import FsPlacesContainer from "../fs-places-container/fs-places-container.component";
-
+import { TripTokenContext } from "../../contexts/triptoken/triptoken.context";
 import { PlacesContext } from "../../contexts/places/places.context";
-import { useContext } from "react";
 
 const defaultFromFields = {
   search: "",
@@ -14,6 +13,7 @@ const Search = () => {
   const [formFields, setFormFields] = useState(defaultFromFields);
   const [fsPlaces, setFsPlaces] = useState([]);
   const { places } = useContext(PlacesContext);
+  const { tripToken } = useContext(TripTokenContext);
 
   const { search } = formFields;
   const handleSubmit = async (event) => {
@@ -62,7 +62,7 @@ const Search = () => {
       });
   };
 
-  console.log("firestore", places);
+  // console.log("firestore", places);
 
   return (
     <div>
@@ -93,13 +93,15 @@ const Search = () => {
         </h1>
       </div>
 
-      {places.length === 0 && (
+      {tripToken && places.length === 0 && (
         <div className="content has-text-centered p-3">
           <h1 className="title is-4 mb-5">Your Trip is empty</h1>
         </div>
       )}
 
-      {places.length !== 0 && <FsPlacesContainer fsPlaces={places} />}
+      {tripToken && places.length !== 0 && (
+        <FsPlacesContainer fsPlaces={places} />
+      )}
     </div>
   );
 };

@@ -30,13 +30,10 @@ const Welcome = () => {
     const places = await getPlacesArrayForToken(token);
     if (places) {
       setTripToken(token);
+      localStorage.setItem("token", token);
       setPlaces(places.places);
       navigate("/home");
     }
-
-    // setTripToken(token);
-    // setPlaces(places.places);
-    // navigate("/home");
   };
 
   const resetFormField = () => {
@@ -64,6 +61,7 @@ const Welcome = () => {
       return;
     }
     setTripToken(token);
+    localStorage.setItem("token", token);
     setPlaces(places.places);
     navigate("/home");
   };

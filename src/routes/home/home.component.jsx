@@ -1,23 +1,27 @@
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { TripTokenContext } from "../../contexts/triptoken/triptoken.context";
 import Search from "../../components/search/search.component";
+import { getPlacesArrayForToken } from "../../utils/firebase.utils";
+import { PlacesContext } from "../../contexts/places/places.context";
 
 const Home = () => {
   const { tripToken, setTripToken } = useContext(TripTokenContext);
   const [copyState, setCopyState] = useState("Copy");
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const { setPlaces } = useContext(PlacesContext);
 
-  // useEffect(() => {
-  //   const getPlaces = async () => {
-  //     const places = await getPlacesArrayForToken(tripToken);
-  //     console.log(places);
-  //   };
-  //   getPlaces();
-  //   // console.log("useEffect", places);
-  // }, []);
-
-  // console.log(places);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setTripToken(token);
+    const getPlaces = async () => {
+      const places = await getPlacesArrayForToken(token);
+      if (places) {
+        setPlaces(places.places);
+      }
+    };
+    getPlaces();
+  }, []);
 
   const copyHandler = async () => {
     navigator.clipboard.writeText(tripToken);
@@ -25,6 +29,8 @@ const Home = () => {
     await delay(400);
     setCopyState("Copy");
   };
+
+  console.log(tripToken);
   return (
     <div>
       <section className="hero is-fullheight has-background">
@@ -57,15 +63,17 @@ const Home = () => {
                           <span className="button is-static">Trip Token</span>
                         </p>
 
-                        <div className="control is-expanded">
-                          <input
-                            className="input has-text-centered"
-                            type="text"
-                            name="search"
-                            defaultValue={tripToken}
-                            readOnly="readonly"
-                          />
-                        </div>
+                        {tripToken && (
+                          <div className="control is-expanded">
+                            <input
+                              className="input has-text-centered"
+                              type="text"
+                              name="search"
+                              defaultValue={tripToken}
+                              readOnly="readonly"
+                            />
+                          </div>
+                        )}
 
                         <div className="control">
                           <button
@@ -83,6 +91,7 @@ const Home = () => {
                         to="/"
                         onClick={() => {
                           setTripToken(null);
+                          localStorage.removeItem("token");
                         }}
                       >
                         <span>Take Off</span>
