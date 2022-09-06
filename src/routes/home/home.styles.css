@@ -1,0 +1,10 @@
+image.is-custom {
+  height: 12px;
+  width: 215px;
+}
+
+.navbar-item img {
+  max-height: 2.75rem;
+  margin-right: 40px;
+  margin-top: 8px;
+}

@@ -1,6 +1,22 @@
-# Getting Started with Create React App
+# Live Demo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+https://adhan.netlify.app/
+
+# What is Plan Your Trip ?
+
+![](https://github.com/ahsanatzapier/react-adhan-prayer-times/blob/main/src/assets/smallprayer.svg)
+
+# Preview
+
+![](https://cdn.zappy.app/97da7fe7d54c323605c5d2ff3bf3defa.png)
+
+![](https://cdn.zappy.app/23613b3be146ed74885e08ff50caaa74.png)
+
+![](https://cdn.zappy.app/72d956203773e934c21a125d27bd7b02.png)
+
+![](https://cdn.zappy.app/98de9c433ca0bb6a76b84ead1875208f.png)
+
+![](https://cdn.zappy.app/01b697d6c59faf758c5e20fd9dc15aef.png)
 
 ## Available Scripts
 

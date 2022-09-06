@@ -5,6 +5,10 @@ import Search from "../../components/search/search.component";
 import { getPlacesArrayForToken } from "../../utils/firebase.utils";
 import { PlacesContext } from "../../contexts/places/places.context";
 
+import "./home.styles.css";
+
+import Logo from "../../assets/logo.svg";
+
 const Home = () => {
   const { tripToken, setTripToken } = useContext(TripTokenContext);
   const [copyState, setCopyState] = useState("Copy");
@@ -43,6 +47,11 @@ const Home = () => {
         <div className="hero-head">
           <nav className="navbar is-transparent">
             <div className="navbar-brand">
+              <a class="navbar-item">
+                <figure class="image is-custom">
+                  <img src={Logo} />
+                </figure>
+              </a>
               <div
                 className="navbar-burger"
                 data-target="navbarExampleTransparentExample"
