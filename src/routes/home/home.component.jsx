@@ -47,8 +47,8 @@ const Home = () => {
         <div className="hero-head">
           <nav className="navbar is-transparent">
             <div className="navbar-brand">
-              <a class="navbar-item">
-                <figure class="image is-custom">
+              <a className="navbar-item">
+                <figure className="image is-custom">
                   <img src={Logo} />
                 </figure>
               </a>

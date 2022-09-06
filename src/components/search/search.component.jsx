@@ -43,19 +43,7 @@ const Search = () => {
       .then((response) => response.json())
       .then((places) => {
         setFsPlaces(places.results);
-        // console.log(fsPlaces);
-        // setSearchUpdated(true);
-      })
-      .catch(() => {
-        console.log("Unable to fetch locations");
-      });
-
-    fetch(endpoint, fourSquareOptions)
-      .then((response) => response.json())
-      .then((places) => {
-        setFsPlaces(places.results);
-        // console.log(fsPlaces);
-        // setSearchUpdated(true);
+        console.log(fsPlaces);
       })
       .catch(() => {
         console.log("Unable to fetch locations");
@@ -83,7 +71,9 @@ const Search = () => {
       </form>
       <br></br>
 
-      {fsPlaces.length !== 0 && <PlacesContainer fsPlaces={fsPlaces} />}
+      {fsPlaces && fsPlaces.length !== 0 && (
+        <PlacesContainer fsPlaces={fsPlaces} />
+      )}
       <br></br>
 
       <div className="box has-background-dark p-4">
@@ -92,12 +82,6 @@ const Search = () => {
           Your Trip
         </h1>
       </div>
-
-      {tripToken && places.length === 0 && (
-        <div className="content has-text-centered p-3">
-          <h1 className="title is-4 mb-5">Your Trip is empty</h1>
-        </div>
-      )}
 
       {tripToken && places.length !== 0 && (
         <FsPlacesContainer fsPlaces={places} />

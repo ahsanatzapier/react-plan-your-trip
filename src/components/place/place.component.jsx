@@ -8,14 +8,18 @@ import {
 } from "../../utils/firebase.utils";
 
 const Place = ({ place }) => {
+  const { tripToken } = useContext(TripTokenContext);
+  const { setPlaces } = useContext(PlacesContext);
+  const [addState, setAddState] = useState("Add to Trip");
+
+  if (!place.categories[0]) return;
+
   const { name: placeName, location: placeLocation, fsq_id: id } = place;
   const { address, locality, country } = placeLocation;
   const { name: categoryName, icon } = place.categories[0];
   const { prefix, suffix } = icon;
   const imageUrl = `${prefix}88${suffix}`;
-  const { tripToken } = useContext(TripTokenContext);
-  const { setPlaces } = useContext(PlacesContext);
-  const [addState, setAddState] = useState("Add to Trip");
+
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const handleClick = async () => {
