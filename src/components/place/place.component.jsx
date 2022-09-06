@@ -19,12 +19,12 @@ const Place = ({ place }) => {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const handleClick = async () => {
-    const status = await addPlaceToPlacesArrayForToken(tripToken, place);
-    console.log("ADD BUTTON", status);
+    await addPlaceToPlacesArrayForToken(tripToken, place);
+    setAddState("Added!");
     const places = await getPlacesArrayForToken(tripToken);
     if (places) {
       setPlaces(places.places);
-      setAddState("Added!");
+
       await delay(400);
       setAddState("Add to Trip");
     }

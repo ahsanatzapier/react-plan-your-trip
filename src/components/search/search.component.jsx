@@ -93,7 +93,7 @@ const Search = () => {
         </h1>
       </div>
 
-      {places.length == 0 && (
+      {places.length === 0 && (
         <div className="content has-text-centered p-3">
           <h1 className="title is-4 mb-5">Your Trip is empty</h1>
         </div>

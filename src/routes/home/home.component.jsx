@@ -1,13 +1,10 @@
 import { Link } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { TripTokenContext } from "../../contexts/triptoken/triptoken.context";
-import { PlacesContext } from "../../contexts/places/places.context";
-import { getPlacesArrayForToken } from "../../utils/firebase.utils";
 import Search from "../../components/search/search.component";
 
 const Home = () => {
   const { tripToken, setTripToken } = useContext(TripTokenContext);
-  const { places, setPlaces } = useContext(PlacesContext);
   const [copyState, setCopyState] = useState("Copy");
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

@@ -1,5 +1,4 @@
 import {
-  addPlaceToPlacesArrayForToken,
   getPlacesArrayForToken,
   removePlaceFromPlacesArrayForToken,
 } from "../../utils/firebase.utils";
